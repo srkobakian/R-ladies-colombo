@@ -573,59 +573,65 @@ class: inverse, center
 ]
 ---
 
-### Common Projections
+# Common Projections
 
 
 --
 
 &lt;img src="images/gg4326.png" style="position:absolute;bottom:10%;left:0%;height:50%;width:33%;" /&gt;
 
+EPSG: 4326, World Geodetic System 1984, used in GPS  
+
 --
 
 &lt;img src="images/gg2163.png" style="position:absolute;bottom:10%;left:33%;height:50%;width:33%;" /&gt;
+
+EPSG: 2163, US National Atlas Equal Area, spherical projection
 
 --
 
 &lt;img src="images/gg8826.png" style="position:absolute;bottom:10%;right:0%;height:50%;width:33%;" /&gt;
 
---
-
-
-EPSG: 4326, World Geodetic System 1984, used in GPS  
-
-EPSG: 2163, US National Atlas Equal Area, spherical projection
-
 EPSG: 8826, North American Datum 1983
 
 ---
 
-# Chorpleths are great for:
+
+# Choropleths
+
+- Familiar shapes of areas
+
+- Familiar boundary relationships
+
+- Identify spatial structures and patterns
+
+However, issues may arise:
 
 
----
-class: inverse, center, middle
+# Difficulty interpreting spatial patterns:
+- sparsely populated rural areas are easy to see
+- densely populated inner city areas are geographically small
 
-# Choropleths are not the only option
 
---
-
-# What are we trying to communicate?
 
 ---
 
 class: inverse, center
 
+# What are we trying to communicate?
 
-## Population related statistics
+---
 
-- Tell us something about people
-- Compares populations to each other
+# Official statistics
+
+- Statistics about people
+- Compare populations to each other
 
 ---
 
 # What are our options?
 
-&lt;img src="images/ggcartograms-1.jpeg" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" /&gt;
+&lt;img src="images/ggcartograms-1.jpeg" style="position:absolute;bottom:-10%;left:10%;height:80%;width:80%;" /&gt;
 
 --
 
@@ -639,6 +645,30 @@ Our paper covers in detail and has lots of examples of world wide cancer atlases
 
 ---
 
+# Cartograms
+
+
+
+### - augment the size, shape, or distance of geographical areas
+
+### - sizes areas by the value of a statistic, not earth size area
+
+### - account for the population density, reveal hidden spatial patterns
+
+### - reducing the visual impact of large areas with small populations
+
+
+???
+
+map creators can use white lies to create useful displays by distorting the geometry and suppressing features.   [26]. The distortion in an area cartogram accounts for
+the population density, preventing it from obscuring the spatial patterns [27]. 
+
+---
+
+
+
+---
+
 
 
 
@@ -649,7 +679,7 @@ Our paper covers in detail and has lots of examples of world wide cancer atlases
 
 class: center, middle
 
-# Thanks!
+# Thank you for listening!
 
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
