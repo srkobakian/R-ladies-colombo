@@ -8,6 +8,8 @@
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link href="libs/remark-css/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -121,7 +123,7 @@ world &lt;- map_data("world")
 
 Australia &lt;- world %&gt;% filter(region == "Australia") 
 
-Australia %&gt;% head()
+Australia
 ```
 
 
@@ -213,15 +215,6 @@ Polygons are very similar to paths (as drawn by geom_path()) except that the sta
 
 ---
 
-# What have we learned?
-
-### We can create polygon maps
---
-
-### How can we improve this?
-
----
-
 class: middle, center, inverse
 
 
@@ -260,16 +253,26 @@ like puzzle pieces
 
 
 ```r
+library(sf)
 library(ozmaps)
 sf_oz &lt;- ozmap_data("country")
 sf_oz %&gt;% kable()
 ```
 
-
-
-|NAME      |geometry                       |
-|:---------|:------------------------------|
-|Australia |MULTIPOLYGON (((144.8691 -4... |
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; NAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((144.8691 -4... &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
 
@@ -410,7 +413,7 @@ covid_data
 
 --
 .pull-left[
-### - Rename columns so the names match
+### - Expand the abbreviations so the names match
 ### - Convert cases to numeric values
 
 
@@ -440,7 +443,7 @@ covid_states &lt;- left_join(ozmap_states, covid_data,
                    by = c("NAME" = "STATE"))
 ```
 
-### - Remove the "Other Territories
+### - Remove the "Other Territories"
 
 
 ```r
@@ -495,18 +498,75 @@ covid_states &lt;- covid_states %&gt;%
 
 # Complete map data &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
 
-
-|STATE                        | CASES| OSEAS|NET |
-|:----------------------------|-----:|-----:|:---|
-|Victoria                     | 20479|    NA|0   |
-|New South Wales              |  5149|    NA|-   |
-|Queensland                   |  1323|     2|2   |
-|Western Australia            |   911|    NA|-   |
-|South Australia              |   610|    NA|-   |
-|Tasmania                     |   234|    NA|-   |
-|Australian Capital Territory |   118|    NA|0   |
-|Northern Territory           |   104|    NA|-   |
-|Australia                    | 28928|     2|2   |
+&lt;table class="table" style="font-size: 12px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; NAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; CASES &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; OSEAS &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; NET &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; New South Wales &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((150.7016 -3... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5149 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((146.6196 -3... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20479 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((148.8473 -2... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1323 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; South Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((137.3481 -3... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 610 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Western Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((126.3868 -1... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 911 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((147.8397 -4... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 234 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Northern Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((136.3669 -1... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 104 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australian Capital Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((149.2317 -3... &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 .pull-right[
 
@@ -540,16 +600,443 @@ ggplot(covid_states) +
 ---
 
 class: inverse, center
+# Off we go!
 
 &lt;img src="https://simplyettad.files.wordpress.com/2016/05/plane-travel-animated-gif-4.gif" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" /&gt;
 
+
+---
+
+# Covid in Sri Lanka
+
+&lt;img src="images/covidSLpdf.png" style="position:absolute;bottom:15%;left:12%;height:70%;width:35%;" /&gt;
+
+
+&lt;img src="images/covidSLtable.png" style="position:absolute;bottom:15%;right:12%;height:70%;width:35%;" /&gt;
+
+.footnote[
+
+https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
+]
+
+---
+
+
+### Data: Epidemiology Unit, Ministry of Health
+
+
+
+
+
+.left-column[
+
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; DISTRICT &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; COLOMBO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26925 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GAMPAHA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15669 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; PUTTALAM &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1011 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; KALUTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5674 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ANURADHAPURA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 428 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; KANDY &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3573 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; KURUNEGALA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; POLONNARUWA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 202 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; JAFFNA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 229 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RATNAPURA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1661 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+.right-column[
+
+```r
+*library(stringr)
+# https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
+covid_sl_table &lt;- c("COLOMBO26925GAMPAHA15669PUTTALAM1011KALUTARA5674ANURADHAPURA428KANDY3573KURUNEGALA2040POLONNARUWA202JAFFNA229RATNAPURA1661KEGALLE1315MONERAGALA345KALMUNAI1183MATALE702GALLE1852AMPARA227BADULLA1060MATARA1346BATTICOLOA426HAMBANTOTA539VAVUNIA356TRINCOMALEE463NUWARAELIYA970KILINOCHCHI80MANNAR198MULLATIVU20")
+
+# Extract names of regions, using a regular expression to search for letters
+districts &lt;- covid_sl_table %&gt;%
+  str_extract_all(string = ., pattern = "[A-Z]*") %&gt;% unlist( ) %&gt;% 
+  str_subset(., pattern = "[A-Z]")
+
+# Extract number of cases, using a regular expression to search for numbers
+counts &lt;- covid_sl_table %&gt;% 
+  str_extract_all(string = ., pattern = "[0-9]*") %&gt;% unlist() %&gt;% 
+  str_subset(., pattern = "[0-9]")
+
+# Combine two sets of data to create a table
+covid_sl &lt;- tibble(DISTRICT = districts,
+                   Count = counts)
+```
+]
+
+---
+
+
+# Map data for Sri Lanka
+
+
+
+```r
+# Select the level 2 districts (adm2)
+sf_sl &lt;- read_sf("lka_adm_slsd_20200305_shp/lka_admbnda_adm2_slsd_20200305.shp") %&gt;%
+  select(ADM2_EN, geometry)
+sf_sl
+```
+
+```
+## Simple feature collection with 26 features and 1 field
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 79.51916 ymin: 5.918297 xmax: 81.8772 ymax: 9.835718
+## geographic CRS: WGS 84
+## # A tibble: 26 x 2
+##    ADM2_EN                                                              geometry
+##    &lt;chr&gt;                                                      &lt;MULTIPOLYGON [°]&gt;
+##  1 [unknown]   (((79.80303 7.8503, 79.80333 7.849463, 79.80333 7.849463, 79.803~
+##  2 Ampara      (((81.23892 7.738495, 81.23903 7.73846, 81.23912 7.738474, 81.23~
+##  3 Anuradhapu~ (((80.79126 8.918771, 80.79164 8.918763, 80.79209 8.91885, 80.79~
+##  4 Badulla     (((80.9806 7.61768, 80.98104 7.617651, 80.98152 7.617694, 80.982~
+##  5 Batticaloa  (((81.76936 7.536074, 81.76918 7.536048, 81.76907 7.536107, 81.7~
+##  6 Colombo     (((79.87696 6.98085, 79.87805 6.98068, 79.87808 6.980692, 79.878~
+##  7 Galle       (((80.09646 6.132867, 80.09638 6.132866, 80.0963 6.132871, 80.09~
+##  8 Gampaha     (((80.14677 7.312115, 80.14689 7.311824, 80.1469 7.311761, 80.14~
+##  9 Hambantota  (((81.61401 6.572167, 81.61425 6.572167, 81.61462 6.572185, 81.6~
+## 10 Jaffna      (((79.52615 9.383134, 79.52537 9.383026, 79.5245 9.383076, 79.52~
+## # ... with 16 more rows
+```
+
+
+.footnote[
+[5] https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
+]
+
+---
+
+.pull-left[
+
+## Data &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; DISTRICT &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; COLOMBO &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26925 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GAMPAHA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 15669 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; PUTTALAM &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1011 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; KALUTARA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5674 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ANURADHAPURA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 428 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; KANDY &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3573 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; KURUNEGALA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; POLONNARUWA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 202 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; JAFFNA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 229 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; RATNAPURA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1661 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.pull-right[
+
+## Map &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; ADM2_EN &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; [unknown] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.80303 7.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Ampara &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.23892 7.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Anuradhapura &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.79126 8.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Badulla &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.9806 7.6... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Batticaloa &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.76936 7.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Colombo &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.87696 6.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Galle &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.09646 6.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gampaha &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.14677 7.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hambantota &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.61401 6.... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jaffna &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.52615 9.... &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+A different problem to the Australia set 
+
+---
+
+# What is this unknown district?
+
+&lt;img src="Index_files/figure-html/lagoon-1.png" width="6000" /&gt;
+---
+
+
+# To join the Covid data to the map
+
 --
+.pull-left[
+### - Convert the district names to match
+
+
+```r
+sf_sl &lt;- sf_sl %&gt;% 
+  mutate(DISTRICT = str_to_upper(ADM2_EN)) %&gt;% 
+  select(-ADM2_EN) %&gt;% 
+  # use District names from Covid data
+  mutate(DISTRICT = case_when(
+          DISTRICT == "BATTICALOA" ~ "BATTICOLOA",
+          DISTRICT == "NUWARA ELIYA" ~ "NUWARAELIYA",
+          DISTRICT == "MONARAGALA" ~ "MONERAGALA",
+          DISTRICT == "MULLAITIVU" ~ "MULLATIVU",
+          DISTRICT == "VAVUNIYA" ~ "VAVUNIA",
+          TRUE ~ DISTRICT))
+```
+]
+
+.pull-right[
+
+### - Peform a join
+
+
+```r
+covid_districts_sl &lt;- left_join(sf_sl, covid_sl,
+                   by = c("DISTRICT")) %&gt;% 
+  mutate(Count = parse_number(Count))
+```
+
+### - Remove the "[unknown]"
+
+
+```r
+covid_districts_sl &lt;- covid_districts_sl %&gt;% 
+              filter(!(DISTRICT == "[UNKNOWN]")) %&gt;% 
+              filter(!(DISTRICT == "KALMUNAI"))%&gt;% 
+  # adjust case numbers for city of Kalmunai in Ampara 1183+227 = 1410
+  mutate(Count = ifelse(DISTRICT == "AMPARA", 1410, Count)) 
+```
+
+]
+
+---
+
+
+.pull-left[
+
+# Complete map data &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+&lt;table class="table" style="font-size: 12px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; DISTRICT &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.23892 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; AMPARA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1410 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.79126 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ANURADHAPURA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 428 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.9806 7.6... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BADULLA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1060 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.76936 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BATTICOLOA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 426 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.87696 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; COLOMBO &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26925 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.09646 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GALLE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1852 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.14677 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GAMPAHA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15669 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.61401 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; HAMBANTOTA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 539 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.52615 9.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; JAFFNA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 229 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.97717 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; KALUTARA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5674 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.95625 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; KANDY &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3573 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.15908 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; KEGALLE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1315 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.00208 9.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; KILINOCHCHI &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.10069 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; KURUNEGALA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2040 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.91796 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MANNAR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 198 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.pull-right[
+
+# Choropleth Map &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
+
+&lt;img src="Index_files/figure-html/coviddistrictsmap-1.png" width="3600" /&gt;
+]
+
+
+---
+
+class: inverse, center
 
 # What should we continue to ask ourselves?
 
 --
 
 ## How can we improve?
+
+---
+
+class: inverse, center
+# Off we go!
+
+&lt;img src="https://simplyettad.files.wordpress.com/2016/05/plane-travel-animated-gif-4.gif" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" /&gt;
+
 
 ---
 
@@ -605,11 +1092,10 @@ EPSG: 8826, North American Datum 1983
 
 - Identify spatial structures and patterns
 
-However, issues may arise:
+### However, if we have:
 
-
-# Difficulty interpreting spatial patterns:
 - sparsely populated rural areas are easy to see
+
 - densely populated inner city areas are geographically small
 
 
@@ -622,18 +1108,13 @@ class: inverse, center
 
 ---
 
-# Official statistics
+class: center
+# What are the alternatives?
 
-- Statistics about people
-- Compare populations to each other
-
----
-
-# What are our options?
-
-&lt;img src="images/ggcartograms-1.jpeg" style="position:absolute;bottom:-10%;left:10%;height:80%;width:80%;" /&gt;
-
---
+&lt;img src="images/ggcont.png" style="position:absolute;bottom:45%;left:0%;height:50%;width:50%;" /&gt;
+&lt;img src="images/ggncont.png" style="position:absolute;bottom:45%;right:0%;height:50%;width:50%;" /&gt;
+&lt;img src="images/ggdorl.png" style="position:absolute;bottom:4%;left:0%;height:55%;width:50%;" /&gt;
+&lt;img src="images/gghexmap.png" style="position:absolute;bottom:4%;right:0%;height:50%;width:50%;" /&gt;
 
 .footnote[
 [3] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
@@ -665,7 +1146,23 @@ the population density, preventing it from obscuring the spatial patterns [27].
 
 ---
 
+# Contiguous Cartogram
+&lt;img src="images/ggcont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
 
+---
+
+# Non-Contiguous Cartogram
+&lt;img src="images/ggncont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
+
+---
+
+# Dorling Cartogram
+&lt;img src="images/ggdorl.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
+
+---
+
+# Hexagon Tile Map
+&lt;img src="images/gghexmap.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
 
 ---
 
@@ -675,6 +1172,20 @@ the population density, preventing it from obscuring the spatial patterns [27].
 
 
 
+
+---
+
+class: top, center, inverse
+
+&lt;img src="https://media.giphy.com/media/SufoKsersIO2Y/giphy.gif"  style="position:absolute;bottom:50px;left:40%;height:50%;width:20%;" /&gt;
+
+# Ask me a question
+
+### Use the chat
+### Answer in discussion time
+
+???
+---
 
 
 class: center, middle

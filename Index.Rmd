@@ -22,6 +22,9 @@ library(knitr)
 library(icon)
 library(tidyverse)
 library(maps)
+library(ggforce)
+library(kableExtra)
+library(sf)
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.retina = 3, 
                       echo = FALSE, 
@@ -133,7 +136,7 @@ world <- map_data("world")
 
 Australia <- world %>% filter(region == "Australia") 
 
-Australia %>% head()
+Australia
 ```
 
 
@@ -216,15 +219,6 @@ Polygons are very similar to paths (as drawn by geom_path()) except that the sta
 
 ---
 
-# What have we learned?
-
-### We can create polygon maps
---
-
-### How can we improve this?
-
----
-
 class: middle, center, inverse
 
 
@@ -262,6 +256,7 @@ like puzzle pieces
 .pull-left[
 
 ```{r ozmapcountry1, echo = TRUE}
+library(sf)
 library(ozmaps)
 sf_oz <- ozmap_data("country")
 sf_oz %>% kable()
@@ -367,7 +362,7 @@ ozmap_states %>% knitr::kable()
 
 --
 .pull-left[
-### - Rename columns so the names match
+### - Expand the abbreviations so the names match
 ### - Convert cases to numeric values
 
 ```{r covidmutate, echo = TRUE}
@@ -395,7 +390,7 @@ covid_states <- left_join(ozmap_states, covid_data,
                    by = c("NAME" = "STATE"))
 ```
 
-### - Remove the "Other Territories
+### - Remove the "Other Territories"
 
 ```{r statesfilter, echo = TRUE}
 covid_states <- covid_states %>% 
@@ -432,9 +427,8 @@ ozmap_states %>% knitr::kable()
 
 # Complete map data `r icon::fontawesome("check")`
 
-```{r coviddata}
-covid_data <- covid_data
-covid_data %>% knitr::kable()
+```{r covidstatesdata}
+covid_states %>% knitr::kable() %>% kable_styling(font_size = 12)
 ```
 ]
 .pull-right[
@@ -465,16 +459,208 @@ ggplot(covid_states) +
 ---
 
 class: inverse, center
+# Off we go!
 
 <img src="https://simplyettad.files.wordpress.com/2016/05/plane-travel-animated-gif-4.gif" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" />
 
+
+---
+
+# Covid in Sri Lanka
+
+<img src="images/covidSLpdf.png" style="position:absolute;bottom:15%;left:12%;height:70%;width:35%;" />
+
+
+<img src="images/covidSLtable.png" style="position:absolute;bottom:15%;right:12%;height:70%;width:35%;" />
+
+.footnote[
+
+https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
+]
+
+---
+
+
+### Data: Epidemiology Unit, Ministry of Health
+
+
+
+```{r scrapeSL, echo = FALSE}
+{{library(stringr)}}
+# https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
+covid_sl_table <- c("COLOMBO26925GAMPAHA15669PUTTALAM1011KALUTARA5674ANURADHAPURA428KANDY3573KURUNEGALA2040POLONNARUWA202JAFFNA229RATNAPURA1661KEGALLE1315MONERAGALA345KALMUNAI1183MATALE702GALLE1852AMPARA227BADULLA1060MATARA1346BATTICOLOA426HAMBANTOTA539VAVUNIA356TRINCOMALEE463NUWARAELIYA970KILINOCHCHI80MANNAR198MULLATIVU20")
+
+# Extract names of regions, using a regular expression to search for letters
+districts <- covid_sl_table %>%
+  str_extract_all(string = ., pattern = "[A-Z]*") %>% unlist( ) %>% 
+  str_subset(., pattern = "[A-Z]")
+
+# Extract number of cases, using a regular expression to search for numbers
+counts <- covid_sl_table %>% 
+  str_extract_all(string = ., pattern = "[0-9]*") %>% unlist() %>% 
+  str_subset(., pattern = "[0-9]")
+
+# Combine two sets of data to create a table
+covid_sl <- tibble(DISTRICT = districts,
+                   Count = counts)
+```
+
+.left-column[
+
+
+```{r showSL, echo = FALSE}
+covid_sl[1:10,] %>% kable()
+```
+
+]
+.right-column[
+```{r ref.label = 'scrapeSL', echo = TRUE}
+```
+]
+
+---
+
+
+# Map data for Sri Lanka
+
+
+```{r srilanka, echo = TRUE, fig.height = 2, fig.width = 5, dpi = 300}
+# Select the level 2 districts (adm2)
+sf_sl <- read_sf("lka_adm_slsd_20200305_shp/lka_admbnda_adm2_slsd_20200305.shp") %>%
+  select(ADM2_EN, geometry)
+sf_sl
+```
+
+
+.footnote[
+[5] https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
+]
+
+---
+
+.pull-left[
+
+## Data `r icon::fontawesome("check")`
+
+```{r covidSLdatatable, echo = FALSE}
+library(kableExtra)
+covid_sl[1:10,] %>% knitr::kable() %>%
+  kable_styling(font_size = 20)
+```
+]
+.pull-right[
+
+## Map `r icon::fontawesome("check")`
+
+```{r covidSLmaptable, echo = FALSE}
+sf_sl[1:10,] %>% knitr::kable() %>%
+  kable_styling(font_size = 20)
+
+```
+]
+
+???
+
+A different problem to the Australia set 
+
+---
+
+# What is this unknown district?
+
+```{r lagoon, fig.width = 10, dpi = 600}
+ggplot(sf_sl) + 
+    geom_sf() +
+    geom_sf(data = sf_sl %>% filter(ADM2_EN == "[unknown]"), fill = "lightblue") + 
+    facet_zoom(xy = ADM2_EN == "[unknown]", zoom.size = 0.8) +
+    theme(panel.background = element_rect(fill = "lightblue"))
+```
+---
+
+
+# To join the Covid data to the map
+
 --
+.pull-left[
+### - Convert the district names to match
+
+```{r covidslmutate, echo = TRUE}
+sf_sl <- sf_sl %>% 
+  mutate(DISTRICT = str_to_upper(ADM2_EN)) %>% 
+  select(-ADM2_EN) %>% 
+  # use District names from Covid data
+  mutate(DISTRICT = case_when(
+          DISTRICT == "BATTICALOA" ~ "BATTICOLOA",
+          DISTRICT == "NUWARA ELIYA" ~ "NUWARAELIYA",
+          DISTRICT == "MONARAGALA" ~ "MONERAGALA",
+          DISTRICT == "MULLAITIVU" ~ "MULLATIVU",
+          DISTRICT == "VAVUNIYA" ~ "VAVUNIA",
+          TRUE ~ DISTRICT))
+```
+]
+
+.pull-right[
+
+### - Peform a join
+
+```{r districtsjoin, echo = TRUE}
+covid_districts_sl <- left_join(sf_sl, covid_sl,
+                   by = c("DISTRICT")) %>% 
+  mutate(Count = parse_number(Count))
+```
+
+### - Remove the "[unknown]"
+
+```{r districtsfilter, echo = TRUE}
+covid_districts_sl <- covid_districts_sl %>% 
+              filter(!(DISTRICT == "[UNKNOWN]")) %>% 
+              filter(!(DISTRICT == "KALMUNAI"))%>% 
+  # adjust case numbers for city of Kalmunai in Ampara 1183+227 = 1410
+  mutate(Count = ifelse(DISTRICT == "AMPARA", 1410, Count)) 
+```
+
+]
+
+---
+
+
+.pull-left[
+
+# Complete map data `r icon::fontawesome("check")`
+
+```{r coviddistrictsdata}
+covid_districts_sl[1:15,] %>% knitr::kable() %>% kable_styling(font_size = 12)
+```
+]
+.pull-right[
+
+# Choropleth Map `r icon::fontawesome("check")`
+
+```{r coviddistrictsmap, fig.width = 6, fig.height = 5, dpi = 600}
+  
+ggplot(covid_districts_sl) + 
+  geom_sf(aes(fill = Count))
+
+```
+]
+
+
+---
+
+class: inverse, center
 
 # What should we continue to ask ourselves?
 
 --
 
 ## How can we improve?
+
+---
+
+class: inverse, center
+# Off we go!
+
+<img src="https://simplyettad.files.wordpress.com/2016/05/plane-travel-animated-gif-4.gif" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" />
+
 
 ---
 
@@ -530,11 +716,10 @@ EPSG: 8826, North American Datum 1983
 
 - Identify spatial structures and patterns
 
-However, issues may arise:
+### However, if we have:
 
-
-# Difficulty interpreting spatial patterns:
 - sparsely populated rural areas are easy to see
+
 - densely populated inner city areas are geographically small
 
 
@@ -547,18 +732,13 @@ class: inverse, center
 
 ---
 
-# Official statistics
+class: center
+# What are the alternatives?
 
-- Statistics about people
-- Compare populations to each other
-
----
-
-# What are our options?
-
-<img src="images/ggcartograms-1.jpeg" style="position:absolute;bottom:-10%;left:10%;height:80%;width:80%;" />
-
---
+<img src="images/ggcont.png" style="position:absolute;bottom:45%;left:0%;height:50%;width:50%;" />
+<img src="images/ggncont.png" style="position:absolute;bottom:45%;right:0%;height:50%;width:50%;" />
+<img src="images/ggdorl.png" style="position:absolute;bottom:4%;left:0%;height:55%;width:50%;" />
+<img src="images/gghexmap.png" style="position:absolute;bottom:4%;right:0%;height:50%;width:50%;" />
 
 .footnote[
 [3] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
@@ -590,7 +770,23 @@ the population density, preventing it from obscuring the spatial patterns [27].
 
 ---
 
+# Contiguous Cartogram
+<img src="images/ggcont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
 
+---
+
+# Non-Contiguous Cartogram
+<img src="images/ggncont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
+
+---
+
+# Dorling Cartogram
+<img src="images/ggdorl.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
+
+---
+
+# Hexagon Tile Map
+<img src="images/gghexmap.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
 
 ---
 
@@ -600,6 +796,20 @@ the population density, preventing it from obscuring the spatial patterns [27].
 
 
 
+
+---
+
+class: top, center, inverse
+
+<img src="https://media.giphy.com/media/SufoKsersIO2Y/giphy.gif"  style="position:absolute;bottom:50px;left:40%;height:50%;width:20%;" />
+
+# Ask me a question
+
+### Use the chat
+### Answer in discussion time
+
+???
+---
 
 
 class: center, middle

@@ -38,3 +38,6 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# shape file data
+lka_adm_slsd_20200305_shp*
