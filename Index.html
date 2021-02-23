@@ -290,18 +290,52 @@ sf_oz %&gt;% kable()
 ---
 .pull-left[
 
-
-|NAME                         |geometry                       |
-|:----------------------------|:------------------------------|
-|New South Wales              |MULTIPOLYGON (((150.7016 -3... |
-|Victoria                     |MULTIPOLYGON (((146.6196 -3... |
-|Queensland                   |MULTIPOLYGON (((148.8473 -2... |
-|South Australia              |MULTIPOLYGON (((137.3481 -3... |
-|Western Australia            |MULTIPOLYGON (((126.3868 -1... |
-|Tasmania                     |MULTIPOLYGON (((147.8397 -4... |
-|Northern Territory           |MULTIPOLYGON (((136.3669 -1... |
-|Australian Capital Territory |MULTIPOLYGON (((149.2317 -3... |
-|Other Territories            |MULTIPOLYGON (((167.9333 -2... |
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; NAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; New South Wales &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((150.7016 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((146.6196 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((148.8473 -2... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; South Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((137.3481 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Western Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((126.3868 -1... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((147.8397 -4... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Northern Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((136.3669 -1... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australian Capital Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((149.2317 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Other Territories &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((167.9333 -2... &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 .pull-right[
 
@@ -354,17 +388,17 @@ covid_data
 
 ```
 ## # A tibble: 9 x 5
-##   STATE      CASES  OSEAS VAR   NET  
-##   &lt;chr&gt;      &lt;chr&gt;  &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;
-## 1 Victoria   20,479    NA NA    0    
-## 2 NSW        5,149     NA NA    -    
-## 3 Queensland 1,323      2 NA    2    
-## 4 WA         911       NA NA    -    
-## 5 SA         610       NA NA    -    
-## 6 Tasmania   234       NA NA    -    
-## 7 ACT        118       NA NA    0    
-## 8 NT         104       NA NA    -    
-## 9 Australia  28,928     2 NA    2
+##   STATE      CASES  OSEAS VAR     NET
+##   &lt;chr&gt;      &lt;chr&gt;  &lt;int&gt; &lt;lgl&gt; &lt;int&gt;
+## 1 Victoria   20,479    NA NA        0
+## 2 NSW        5,150      1 NA        1
+## 3 Queensland 1,323      2 NA        2
+## 4 WA         912        1 NA        1
+## 5 SA         610       NA NA        0
+## 6 Tasmania   234       NA NA        0
+## 7 ACT        118       NA NA        0
+## 8 NT         104       NA NA        0
+## 9 Australia  28,930     4 NA        4
 ```
 
 
@@ -376,35 +410,123 @@ covid_data
 .pull-left[
 
 # Data &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
-
-|STATE      |CASES  | OSEAS|NET |
-|:----------|:------|-----:|:---|
-|Victoria   |20,479 |    NA|0   |
-|NSW        |5,149  |    NA|-   |
-|Queensland |1,323  |     2|2   |
-|WA         |911    |    NA|-   |
-|SA         |610    |    NA|-   |
-|Tasmania   |234    |    NA|-   |
-|ACT        |118    |    NA|0   |
-|NT         |104    |    NA|-   |
-|Australia  |28,928 |     2|2   |
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; STATE &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; CASES &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; OSEAS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; NET &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20,479 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NSW &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5,150 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1,323 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; WA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 912 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; SA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 610 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 234 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ACT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NT &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 104 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28,930 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 .pull-right[
 
 # Map &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
 
-
-|NAME                         |geometry                       |
-|:----------------------------|:------------------------------|
-|New South Wales              |MULTIPOLYGON (((150.7016 -3... |
-|Victoria                     |MULTIPOLYGON (((146.6196 -3... |
-|Queensland                   |MULTIPOLYGON (((148.8473 -2... |
-|South Australia              |MULTIPOLYGON (((137.3481 -3... |
-|Western Australia            |MULTIPOLYGON (((126.3868 -1... |
-|Tasmania                     |MULTIPOLYGON (((147.8397 -4... |
-|Northern Territory           |MULTIPOLYGON (((136.3669 -1... |
-|Australian Capital Territory |MULTIPOLYGON (((149.2317 -3... |
-|Other Territories            |MULTIPOLYGON (((167.9333 -2... |
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; NAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; New South Wales &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((150.7016 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((146.6196 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((148.8473 -2... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; South Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((137.3481 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Western Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((126.3868 -1... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((147.8397 -4... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Northern Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((136.3669 -1... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australian Capital Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((149.2317 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Other Territories &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((167.9333 -2... &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 
 ---
@@ -460,35 +582,123 @@ covid_states &lt;- covid_states %&gt;%
 
 # Data &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
 
-
-|STATE                        | CASES| OSEAS|NET |
-|:----------------------------|-----:|-----:|:---|
-|Victoria                     | 20479|    NA|0   |
-|New South Wales              |  5149|    NA|-   |
-|Queensland                   |  1323|     2|2   |
-|Western Australia            |   911|    NA|-   |
-|South Australia              |   610|    NA|-   |
-|Tasmania                     |   234|    NA|-   |
-|Australian Capital Territory |   118|    NA|0   |
-|Northern Territory           |   104|    NA|-   |
-|Australia                    | 28928|     2|2   |
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; STATE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; CASES &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; OSEAS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; NET &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20479 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; New South Wales &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5150 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1323 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Western Australia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 912 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; South Australia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 610 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 234 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australian Capital Territory &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Northern Territory &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 104 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australia &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28930 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 .pull-right[
 
 # Map &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
 
-
-|NAME                         |geometry                       |
-|:----------------------------|:------------------------------|
-|New South Wales              |MULTIPOLYGON (((150.7016 -3... |
-|Victoria                     |MULTIPOLYGON (((146.6196 -3... |
-|Queensland                   |MULTIPOLYGON (((148.8473 -2... |
-|South Australia              |MULTIPOLYGON (((137.3481 -3... |
-|Western Australia            |MULTIPOLYGON (((126.3868 -1... |
-|Tasmania                     |MULTIPOLYGON (((147.8397 -4... |
-|Northern Territory           |MULTIPOLYGON (((136.3669 -1... |
-|Australian Capital Territory |MULTIPOLYGON (((149.2317 -3... |
-|Other Territories            |MULTIPOLYGON (((167.9333 -2... |
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; NAME &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; New South Wales &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((150.7016 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((146.6196 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((148.8473 -2... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; South Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((137.3481 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Western Australia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((126.3868 -1... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((147.8397 -4... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Northern Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((136.3669 -1... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Australian Capital Territory &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((149.2317 -3... &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Other Territories &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((167.9333 -2... &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ]
 
@@ -505,65 +715,65 @@ covid_states &lt;- covid_states %&gt;%
    &lt;th style="text-align:left;"&gt; geometry &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; CASES &lt;/th&gt;
    &lt;th style="text-align:right;"&gt; OSEAS &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; NET &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; NET &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; New South Wales &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((150.7016 -3... &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5149 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5150 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Victoria &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((146.6196 -3... &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 20479 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Queensland &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((148.8473 -2... &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1323 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; South Australia &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((137.3481 -3... &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 610 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Western Australia &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((126.3868 -1... &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 911 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 912 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Tasmania &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((147.8397 -4... &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 234 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Northern Territory &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((136.3669 -1... &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 104 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; - &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Australian Capital Territory &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((149.2317 -3... &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 118 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -635,49 +845,49 @@ https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; DISTRICT &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Count &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Count &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; COLOMBO &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 26925 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26925 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; GAMPAHA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 15669 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15669 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; PUTTALAM &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1011 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; KALUTARA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 5674 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5674 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ANURADHAPURA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 428 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 428 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; KANDY &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 3573 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3573 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; KURUNEGALA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2040 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2040 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; POLONNARUWA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 202 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 202 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; JAFFNA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 229 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 229 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; RATNAPURA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1661 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1661 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -702,7 +912,8 @@ counts &lt;- covid_sl_table %&gt;%
 
 # Combine two sets of data to create a table
 covid_sl &lt;- tibble(DISTRICT = districts,
-                   Count = counts)
+                   Count = counts) %&gt;% 
+            mutate(Count = parse_number(Count))
 ```
 ]
 
@@ -715,7 +926,7 @@ covid_sl &lt;- tibble(DISTRICT = districts,
 
 ```r
 # Select the level 2 districts (adm2)
-sf_sl &lt;- read_sf("lka_adm_slsd_20200305_shp/lka_admbnda_adm2_slsd_20200305.shp") %&gt;%
+sf_sl &lt;- read_sf("data/lka_adm_slsd_20200305_shp/lka_admbnda_adm2_slsd_20200305.shp") %&gt;%
   select(ADM2_EN, geometry)
 sf_sl
 ```
@@ -742,6 +953,11 @@ sf_sl
 ## # ... with 16 more rows
 ```
 
+```r
+# Choose a projection from epsg.io:
+sf_sl &lt;- sf_sl %&gt;% st_transform(5235)
+```
+
 
 .footnote[
 [5] https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
@@ -757,49 +973,49 @@ sf_sl
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; DISTRICT &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Count &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Count &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; COLOMBO &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 26925 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26925 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; GAMPAHA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 15669 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15669 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; PUTTALAM &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1011 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; KALUTARA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 5674 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5674 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; ANURADHAPURA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 428 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 428 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; KANDY &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 3573 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3573 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; KURUNEGALA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 2040 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2040 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; POLONNARUWA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 202 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 202 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; JAFFNA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 229 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 229 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; RATNAPURA &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; 1661 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1661 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -818,43 +1034,43 @@ sf_sl
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; [unknown] &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.80303 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((392952.6 59... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Ampara &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.23892 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((551311.8 58... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Anuradhapura &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.79126 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((501928.5 71... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Badulla &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.9806 7.6... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((522825 5682... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Batticaloa &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.76936 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((609877 5593... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Colombo &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.87696 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((400911.5 49... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Galle &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.09646 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((425038.8 40... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Gampaha &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.14677 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((430775.7 53... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Hambantota &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.61401 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((592923.3 45... &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; Jaffna &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.52615 9.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((362968.6 76... &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -868,7 +1084,8 @@ A different problem to the Australia set
 
 # What is this unknown district?
 
-&lt;img src="Index_files/figure-html/lagoon-1.png" width="6000" /&gt;
+&lt;img src="Index_files/figure-html/lagoon-1.png" width="2700" /&gt;
+
 ---
 
 
@@ -880,17 +1097,20 @@ A different problem to the Australia set
 
 
 ```r
-sf_sl &lt;- sf_sl %&gt;% 
-  mutate(DISTRICT = str_to_upper(ADM2_EN)) %&gt;% 
-  select(-ADM2_EN) %&gt;% 
+covid_sl &lt;- covid_sl %&gt;% 
   # use District names from Covid data
   mutate(DISTRICT = case_when(
-          DISTRICT == "BATTICALOA" ~ "BATTICOLOA",
-          DISTRICT == "NUWARA ELIYA" ~ "NUWARAELIYA",
-          DISTRICT == "MONARAGALA" ~ "MONERAGALA",
-          DISTRICT == "MULLAITIVU" ~ "MULLATIVU",
-          DISTRICT == "VAVUNIYA" ~ "VAVUNIA",
+          DISTRICT == "BATTICOLOA" ~ "BATTICALOA",
+          DISTRICT == "NUWARAELIYA" ~ "NUWARA ELIYA",
+          DISTRICT == "MONERAGALA" ~ "MONARAGALA",
+          DISTRICT == "MULLATIVU" ~ "MULLAITIVU",
+          DISTRICT == "VAVUNIA" ~ "VAVUNIYA",
           TRUE ~ DISTRICT))
+
+
+sf_sl &lt;- sf_sl %&gt;% 
+  mutate(DISTRICT = str_to_upper(ADM2_EN)) %&gt;% 
+  select(-ADM2_EN) 
 ```
 ]
 
@@ -901,8 +1121,7 @@ sf_sl &lt;- sf_sl %&gt;%
 
 ```r
 covid_districts_sl &lt;- left_join(sf_sl, covid_sl,
-                   by = c("DISTRICT")) %&gt;% 
-  mutate(Count = parse_number(Count))
+                   by = c("DISTRICT"))
 ```
 
 ### - Remove the "[unknown]"
@@ -911,9 +1130,11 @@ covid_districts_sl &lt;- left_join(sf_sl, covid_sl,
 ```r
 covid_districts_sl &lt;- covid_districts_sl %&gt;% 
               filter(!(DISTRICT == "[UNKNOWN]")) %&gt;% 
-              filter(!(DISTRICT == "KALMUNAI"))%&gt;% 
-  # adjust case numbers for city of Kalmunai in Ampara 1183+227 = 1410
-  mutate(Count = ifelse(DISTRICT == "AMPARA", 1410, Count)) 
+              filter(!(DISTRICT == "KALMUNAI")) %&gt;% 
+  # adjust case numbers
+  # city of Kalmunai in Ampara 1183+227 = 1410
+  mutate(Count = ifelse(DISTRICT == "AMPARA",
+                        1410, Count)) 
 ```
 
 ]
@@ -935,77 +1156,77 @@ covid_districts_sl &lt;- covid_districts_sl %&gt;%
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.23892 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((551311.8 58... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; AMPARA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1410 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.79126 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((501928.5 71... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; ANURADHAPURA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 428 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.9806 7.6... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((522825 5682... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; BADULLA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1060 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.76936 7.... &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; BATTICOLOA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((609877 5593... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BATTICALOA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 426 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.87696 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((400911.5 49... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; COLOMBO &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 26925 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.09646 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((425038.8 40... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; GALLE &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1852 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.14677 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((430775.7 53... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; GAMPAHA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 15669 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((81.61401 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((592923.3 45... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; HAMBANTOTA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 539 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.52615 9.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((362968.6 76... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; JAFFNA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 229 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.97717 6.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((411888.2 43... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; KALUTARA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 5674 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.95625 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((520143.4 55... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; KANDY &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 3573 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.15908 7.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((432117.3 52... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; KEGALLE &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1315 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.00208 9.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((415223 7518... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; KILINOCHCHI &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((80.10069 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((425843.2 63... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; KURUNEGALA &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 2040 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((79.91796 8.... &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MULTIPOLYGON (((405858.7 70... &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; MANNAR &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 198 &lt;/td&gt;
   &lt;/tr&gt;
@@ -1016,7 +1237,7 @@ covid_districts_sl &lt;- covid_districts_sl %&gt;%
 
 # Choropleth Map &lt;svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="height:1em;fill:currentColor;position:relative;display:inline-block;top:.1em;"&gt;  [ comment ]  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt;
 
-&lt;img src="Index_files/figure-html/coviddistrictsmap-1.png" width="3600" /&gt;
+&lt;img src="Index_files/figure-html/coviddistrictsmap-1.png" width="1200" /&gt;
 ]
 
 
@@ -1116,10 +1337,11 @@ class: center
 &lt;img src="images/ggdorl.png" style="position:absolute;bottom:4%;left:0%;height:55%;width:50%;" /&gt;
 &lt;img src="images/gghexmap.png" style="position:absolute;bottom:4%;right:0%;height:50%;width:50%;" /&gt;
 
+.left[
 .footnote[
 [3] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
 ]
-
+]
 ???
 
 Our paper covers in detail and has lots of examples of world wide cancer atlases
@@ -1146,32 +1368,87 @@ the population density, preventing it from obscuring the spatial patterns [27].
 
 ---
 
-# Contiguous Cartogram
-&lt;img src="images/ggcont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
+class: inverse, center
+# Off we go!
 
+&lt;img src="https://simplyettad.files.wordpress.com/2016/05/plane-travel-animated-gif-4.gif" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" /&gt;
+
+---
+
+# Population
+
+
+
+
+---
+
+# Contiguous Cartogram
+
+.pull-left[
+
+```r
+*library(cartogram)
+cont &lt;- cartogram_cont(covid_districts_sl,
+                       weight = "population") %&gt;%
+                      st_as_sf()
+
+ggplot(cont) + 
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1)
+```
+
+]
+.pull-right[
+&lt;img src="Index_files/figure-html/unnamed-chunk-3-1.png" width="504" /&gt;
+
+]
 ---
 
 # Non-Contiguous Cartogram
-&lt;img src="images/ggncont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
+.pull-left[
 
+```r
+ncont &lt;- cartogram_ncont(covid_districts_sl,
+                       weight = "population") %&gt;%
+                      st_as_sf()
+
+ggplot(ncont) + 
+  geom_sf(data = covid_districts_sl) +
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1)
+```
+
+]
+.pull-right[
+&lt;img src="Index_files/figure-html/unnamed-chunk-4-1.png" width="504" /&gt;
+
+]
 ---
 
 # Dorling Cartogram
-&lt;img src="images/ggdorl.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
+.pull-left[
 
----
+```r
+dorl &lt;- cartogram_dorling(covid_districts_sl,
+                       weight = "population") %&gt;%
+                      st_as_sf()
 
-# Hexagon Tile Map
-&lt;img src="images/gghexmap.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" /&gt;
+ggplot(dorl) + 
+  geom_sf(data = covid_districts_sl) +
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1)
+```
 
----
-
-
-
-
-
-
-
+]
+.pull-right[
+&lt;img src="Index_files/figure-html/unnamed-chunk-5-1.png" width="504" /&gt;
+]
 
 ---
 

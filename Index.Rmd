@@ -502,7 +502,8 @@ counts <- covid_sl_table %>%
 
 # Combine two sets of data to create a table
 covid_sl <- tibble(DISTRICT = districts,
-                   Count = counts)
+                   Count = counts) %>% 
+            mutate(Count = parse_number(Count))
 ```
 
 .left-column[
@@ -526,9 +527,12 @@ covid_sl[1:10,] %>% kable()
 
 ```{r srilanka, echo = TRUE, fig.height = 2, fig.width = 5, dpi = 300}
 # Select the level 2 districts (adm2)
-sf_sl <- read_sf("lka_adm_slsd_20200305_shp/lka_admbnda_adm2_slsd_20200305.shp") %>%
+sf_sl <- read_sf("data/lka_adm_slsd_20200305_shp/lka_admbnda_adm2_slsd_20200305.shp") %>%
   select(ADM2_EN, geometry)
 sf_sl
+
+# Choose a projection from epsg.io:
+sf_sl <- sf_sl %>% st_transform(5235)
 ```
 
 
@@ -567,13 +571,14 @@ A different problem to the Australia set
 
 # What is this unknown district?
 
-```{r lagoon, fig.width = 10, dpi = 600}
+```{r lagoon, fig.width = 9, fig.height = 4.5, dpi = 300, echo = FALSE}
 ggplot(sf_sl) + 
     geom_sf() +
     geom_sf(data = sf_sl %>% filter(ADM2_EN == "[unknown]"), fill = "lightblue") + 
-    facet_zoom(xy = ADM2_EN == "[unknown]", zoom.size = 0.8) +
+    facet_zoom(xy = ADM2_EN == "[unknown]", zoom.size = 1) +
     theme(panel.background = element_rect(fill = "lightblue"))
 ```
+
 ---
 
 
@@ -584,17 +589,20 @@ ggplot(sf_sl) +
 ### - Convert the district names to match
 
 ```{r covidslmutate, echo = TRUE}
-sf_sl <- sf_sl %>% 
-  mutate(DISTRICT = str_to_upper(ADM2_EN)) %>% 
-  select(-ADM2_EN) %>% 
+covid_sl <- covid_sl %>% 
   # use District names from Covid data
   mutate(DISTRICT = case_when(
-          DISTRICT == "BATTICALOA" ~ "BATTICOLOA",
-          DISTRICT == "NUWARA ELIYA" ~ "NUWARAELIYA",
-          DISTRICT == "MONARAGALA" ~ "MONERAGALA",
-          DISTRICT == "MULLAITIVU" ~ "MULLATIVU",
-          DISTRICT == "VAVUNIYA" ~ "VAVUNIA",
+          DISTRICT == "BATTICOLOA" ~ "BATTICALOA",
+          DISTRICT == "NUWARAELIYA" ~ "NUWARA ELIYA",
+          DISTRICT == "MONERAGALA" ~ "MONARAGALA",
+          DISTRICT == "MULLATIVU" ~ "MULLAITIVU",
+          DISTRICT == "VAVUNIA" ~ "VAVUNIYA",
           TRUE ~ DISTRICT))
+
+
+sf_sl <- sf_sl %>% 
+  mutate(DISTRICT = str_to_upper(ADM2_EN)) %>% 
+  select(-ADM2_EN) 
 ```
 ]
 
@@ -604,8 +612,7 @@ sf_sl <- sf_sl %>%
 
 ```{r districtsjoin, echo = TRUE}
 covid_districts_sl <- left_join(sf_sl, covid_sl,
-                   by = c("DISTRICT")) %>% 
-  mutate(Count = parse_number(Count))
+                   by = c("DISTRICT"))
 ```
 
 ### - Remove the "[unknown]"
@@ -613,9 +620,11 @@ covid_districts_sl <- left_join(sf_sl, covid_sl,
 ```{r districtsfilter, echo = TRUE}
 covid_districts_sl <- covid_districts_sl %>% 
               filter(!(DISTRICT == "[UNKNOWN]")) %>% 
-              filter(!(DISTRICT == "KALMUNAI"))%>% 
-  # adjust case numbers for city of Kalmunai in Ampara 1183+227 = 1410
-  mutate(Count = ifelse(DISTRICT == "AMPARA", 1410, Count)) 
+              filter(!(DISTRICT == "KALMUNAI")) %>% 
+  # adjust case numbers
+  # city of Kalmunai in Ampara 1183+227 = 1410
+  mutate(Count = ifelse(DISTRICT == "AMPARA",
+                        1410, Count)) 
 ```
 
 ]
@@ -635,11 +644,9 @@ covid_districts_sl[1:15,] %>% knitr::kable() %>% kable_styling(font_size = 12)
 
 # Choropleth Map `r icon::fontawesome("check")`
 
-```{r coviddistrictsmap, fig.width = 6, fig.height = 5, dpi = 600}
-  
+```{r coviddistrictsmap, fig.width = 4, fig.height = 4, dpi = 300}
 ggplot(covid_districts_sl) + 
   geom_sf(aes(fill = Count))
-
 ```
 ]
 
@@ -740,10 +747,11 @@ class: center
 <img src="images/ggdorl.png" style="position:absolute;bottom:4%;left:0%;height:55%;width:50%;" />
 <img src="images/gghexmap.png" style="position:absolute;bottom:4%;right:0%;height:50%;width:50%;" />
 
+.left[
 .footnote[
 [3] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
 ]
-
+]
 ???
 
 Our paper covers in detail and has lots of examples of world wide cancer atlases
@@ -770,32 +778,114 @@ the population density, preventing it from obscuring the spatial patterns [27].
 
 ---
 
-# Contiguous Cartogram
-<img src="images/ggcont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
+class: inverse, center
+# Off we go!
 
+<img src="https://simplyettad.files.wordpress.com/2016/05/plane-travel-animated-gif-4.gif" style="position:absolute;bottom:10%;left:25%;height:55%;width:50%;" />
+
+---
+
+# Population
+
+```{r population}
+{{library(rvest)}}
+{{library(polite)}}
+
+pop_url <- "https://www.citypopulation.de/en/srilanka/prov/admin/"
+
+pop_table <- bow(pop_url) %>% 
+  scrape() %>% 
+  html_table() %>% 
+  purrr::pluck(1)
+
+pop_data <- pop_table %>% 
+  dplyr::select(DISTRICT = Name, Status,
+         population = `PopulationEstimate2020-07-01`) %>% 
+  filter(Status == "District") %>% 
+  mutate(DISTRICT = str_to_upper(DISTRICT)) %>% 
+  mutate(DISTRICT = ifelse(DISTRICT == "MONERAGALA", "MONARAGALA", DISTRICT)) %>% 
+  mutate(population = parse_number(population))
+
+
+covid_districts_sl <- left_join(covid_districts_sl, pop_data)
+
+```
+
+
+---
+
+# Contiguous Cartogram
+
+.pull-left[
+```{r cont, fig.height = 4, echo = TRUE, fig.show = 'hide'}
+{{library(cartogram)}}
+cont <- cartogram_cont(covid_districts_sl,
+                       weight = "population") %>%
+                      st_as_sf()
+
+ggplot(cont) + 
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1)
+```
+
+]
+.pull-right[
+```{r ref.label= 'cont', echo = FALSE}
+
+```
+
+]
 ---
 
 # Non-Contiguous Cartogram
-<img src="images/ggncont.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
+.pull-left[
+```{r ncont, fig.height = 4, echo = TRUE, fig.show = 'hide'}
 
+ncont <- cartogram_ncont(covid_districts_sl,
+                       weight = "population") %>%
+                      st_as_sf()
+
+ggplot(ncont) + 
+  geom_sf(data = covid_districts_sl) +
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1)
+```
+
+]
+.pull-right[
+```{r ref.label= 'ncont', echo = FALSE}
+
+```
+
+]
 ---
 
 # Dorling Cartogram
-<img src="images/ggdorl.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
+.pull-left[
+```{r dorl, fig.height = 4, echo = TRUE, fig.show = 'hide'}
 
----
+dorl <- cartogram_dorling(covid_districts_sl,
+                       weight = "population") %>%
+                      st_as_sf()
 
-# Hexagon Tile Map
-<img src="images/gghexmap.png" style="position:absolute;bottom:0%;left:10%;height:90%;width:80%;" />
+ggplot(dorl) + 
+  geom_sf(data = covid_districts_sl) +
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1)
+```
 
----
+]
+.pull-right[
+```{r ref.label= 'dorl', echo = FALSE}
 
-
-
-
-
-
-
+```
+]
 
 ---
 
