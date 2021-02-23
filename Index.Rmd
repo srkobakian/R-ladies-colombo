@@ -787,7 +787,7 @@ class: inverse, center
 
 # Population
 
-```{r population}
+```{r population, echo = TRUE}
 {{library(rvest)}}
 {{library(polite)}}
 
@@ -799,11 +799,12 @@ pop_table <- bow(pop_url) %>%
   purrr::pluck(1)
 
 pop_data <- pop_table %>% 
-  dplyr::select(DISTRICT = Name, Status,
+  select(DISTRICT = Name, Status,
          population = `PopulationEstimate2020-07-01`) %>% 
   filter(Status == "District") %>% 
   mutate(DISTRICT = str_to_upper(DISTRICT)) %>% 
-  mutate(DISTRICT = ifelse(DISTRICT == "MONERAGALA", "MONARAGALA", DISTRICT)) %>% 
+  mutate(DISTRICT = ifelse(
+   DISTRICT == "MONERAGALA", "MONARAGALA", DISTRICT)) %>% 
   mutate(population = parse_number(population))
 
 

@@ -1378,6 +1378,29 @@ class: inverse, center
 # Population
 
 
+```r
+*library(rvest)
+*library(polite)
+
+pop_url &lt;- "https://www.citypopulation.de/en/srilanka/prov/admin/"
+
+pop_table &lt;- bow(pop_url) %&gt;% 
+  scrape() %&gt;% 
+  html_table() %&gt;% 
+  purrr::pluck(1)
+
+pop_data &lt;- pop_table %&gt;% 
+  select(DISTRICT = Name, Status,
+         population = `PopulationEstimate2020-07-01`) %&gt;% 
+  filter(Status == "District") %&gt;% 
+  mutate(DISTRICT = str_to_upper(DISTRICT)) %&gt;% 
+  mutate(DISTRICT = ifelse(
+   DISTRICT == "MONERAGALA", "MONARAGALA", DISTRICT)) %&gt;% 
+  mutate(population = parse_number(population))
+
+
+covid_districts_sl &lt;- left_join(covid_districts_sl, pop_data)
+```
 
 
 ---
