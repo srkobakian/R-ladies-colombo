@@ -832,7 +832,7 @@ ggplot(cont) +
 
 ]
 .pull-right[
-```{r ref.label= 'cont', echo = FALSE}
+```{r contfig, ref.label= 'cont', echo = FALSE}
 
 ```
 
@@ -857,7 +857,7 @@ ggplot(ncont) +
 
 ]
 .pull-right[
-```{r ref.label= 'ncont', echo = FALSE}
+```{r ncontfig, ref.label= 'ncont', echo = FALSE}
 
 ```
 
@@ -882,7 +882,7 @@ ggplot(dorl) +
 
 ]
 .pull-right[
-```{r ref.label= 'dorl', echo = FALSE}
+```{r dorlfig, ref.label= 'dorl', echo = FALSE}
 
 ```
 ]
