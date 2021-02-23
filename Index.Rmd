@@ -246,7 +246,7 @@ like puzzle pieces
 <img src="images/sfAH.jpg" style="position:absolute;right:2%;bottom:15%;height:80%;width:60%;" />
 
 .footnote[
-[2] https://r-spatial.github.io/sf/index.html
+[1] https://r-spatial.github.io/sf/index.html
 ]
 
 ---
@@ -475,7 +475,7 @@ class: inverse, center
 
 .footnote[
 
-https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
+[2] https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
 ]
 
 ---
@@ -537,7 +537,7 @@ sf_sl <- sf_sl %>% st_transform(5235)
 
 
 .footnote[
-[5] https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
+[3] https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
 ]
 
 ---
@@ -645,8 +645,11 @@ covid_districts_sl[1:15,] %>% knitr::kable() %>% kable_styling(font_size = 12)
 # Choropleth Map `r icon::fontawesome("check")`
 
 ```{r coviddistrictsmap, fig.width = 4, fig.height = 4, dpi = 300}
+{{library(ggthemes)}}
+
 ggplot(covid_districts_sl) + 
-  geom_sf(aes(fill = Count))
+  geom_sf(aes(fill = Count)) +
+  theme_map() + guides(legend.position = "right") + guides(legend.position = "right")
 ```
 ]
 
@@ -688,6 +691,7 @@ class: inverse, center
 
 .footnote[
 [4] https://epsg.io/3857
+[5] https://lyzidiamond.com/posts/4326-vs-3857
 ]
 ---
 
@@ -749,7 +753,7 @@ class: center
 
 .left[
 .footnote[
-[3] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
+[6] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
 ]
 ]
 ???
@@ -788,9 +792,6 @@ class: inverse, center
 # Population
 
 ```{r population, echo = TRUE}
-{{library(rvest)}}
-{{library(polite)}}
-
 pop_url <- "https://www.citypopulation.de/en/srilanka/prov/admin/"
 
 pop_table <- bow(pop_url) %>% 
@@ -802,9 +803,11 @@ pop_data <- pop_table %>%
   select(DISTRICT = Name, Status,
          population = `PopulationEstimate2020-07-01`) %>% 
   filter(Status == "District") %>% 
+  
   mutate(DISTRICT = str_to_upper(DISTRICT)) %>% 
   mutate(DISTRICT = ifelse(
    DISTRICT == "MONERAGALA", "MONARAGALA", DISTRICT)) %>% 
+  
   mutate(population = parse_number(population))
 
 
@@ -818,7 +821,7 @@ covid_districts_sl <- left_join(covid_districts_sl, pop_data)
 # Contiguous Cartogram
 
 .pull-left[
-```{r cont, fig.height = 4, echo = TRUE, fig.show = 'hide'}
+```{r cont, fig.height = 4, echo = TRUE, eval = FALSE, fig.show = 'hide'}
 {{library(cartogram)}}
 cont <- cartogram_cont(covid_districts_sl,
                        weight = "population") %>%
@@ -828,13 +831,29 @@ ggplot(cont) +
   geom_sf(aes(fill = Count), colour = NA) + 
   scale_fill_distiller(type = "seq", 
                        palette = "RdPu",  
-                       direction = 1)
+                       direction = 1,
+                      ) +
+  theme_map() + guides(legend.position = "right")
+  
+```
+
+```{r}
+#save(cont, file = "cont.rda")
+load("cont.rda")
 ```
 
 ]
 .pull-right[
-```{r contfig, ref.label= 'cont', echo = FALSE}
+```{r contfig, echo = FALSE}
 
+{{library(cartogram)}}
+ggplot(cont) + 
+  geom_sf(aes(fill = Count), colour = NA) + 
+  scale_fill_distiller(type = "seq", 
+                       palette = "RdPu",  
+                       direction = 1,
+                      ) +
+  theme_void() + guides(legend.position = "right")
 ```
 
 ]
@@ -853,7 +872,8 @@ ggplot(ncont) +
   geom_sf(aes(fill = Count), colour = NA) + 
   scale_fill_distiller(type = "seq", 
                        palette = "RdPu",  
-                       direction = 1)
+                       direction = 1) +
+  theme_void() + guides(legend.position = "right")
 ```
 
 ]
@@ -878,7 +898,8 @@ ggplot(dorl) +
   geom_sf(aes(fill = Count), colour = NA) + 
   scale_fill_distiller(type = "seq", 
                        palette = "RdPu",  
-                       direction = 1)
+                       direction = 1) +
+  theme_void() + guides(legend.position = "right")
 ```
 
 ]
@@ -902,7 +923,6 @@ class: top, center, inverse
 ???
 ---
 
-
 class: center, middle
 
 # Thank you for listening!
@@ -910,3 +930,20 @@ class: center, middle
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
 
 The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+
+---
+
+Footnotes
+
+
+[1] https://r-spatial.github.io/sf/index.html
+
+[2] https://covid19.gov.lk/wp-content/uploads/2021/02/sitrep-sl-en-18-02_10_21.pdf
+
+[3] https://data.humdata.org/dataset/sri-lanka-administrative-levels-0-4-boundaries
+
+[4] https://epsg.io/3857
+
+[5] https://lyzidiamond.com/posts/4326-vs-3857
+
+[6] https://www.researchgate.net/publication/347076645_Mapping_cancer_the_potential_of_cartograms_and_alternative_map_displays
